@@ -6,16 +6,16 @@ import { MovieValidations } from './movies.validation';
 const router = Router();
 
 router.post(
-  '/movies',
+  '/',
   validateRequest(MovieValidations.createMovieValidationSchema),
   MovieControllers.createMovie,
 );
-router.get('/movies', MovieControllers.getAllMovies);
+router.get('/', MovieControllers.getAllMovies);
 router.patch(
-  '/movies/:id',
+  '/:id',
   validateRequest(MovieValidations.updateMovieValidationSchema),
   MovieControllers.updateMovie,
 );
-router.get('/movies/:id/rewatch-order', MovieControllers.getRewatchOrder);
+router.get('/:id/rewatch-order', MovieControllers.getRewatchOrder);
 
-export default router;
+export const MovieRoutes = router;
