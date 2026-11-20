@@ -4,9 +4,12 @@ import AppError from '../../errors/AppError';
 import type {
   TCreateMovieInput,
   TMovieNode,
+  TMovies,
   TUpdateMovieInput,
 } from './movies.interface';
 import { Movie } from './movies.model';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { MOVIE_SEARCHABLE_FIELDS } from './movie.constant';
 
 // Convert ObjectId into a string for Map and Set operations.
 const getId = (id: mongoose.Types.ObjectId | string) => id.toString();
@@ -136,16 +139,27 @@ const createMovieIntoDB = async (payload: TCreateMovieInput) => {
   validateGraph(graph);
 
   await movie.save();
+  console.log("created movie =>",movie);
 
   return movie;
 };
 
 // GET ALL MOVIES
-const getAllMoviesFromDB = async () => {
-  const result = await Movie.find()
-    .populate('prerequisites', 'title releaseYear runtime watched')
-    .sort({ releaseYear: 1 });
-  return result;
+const getAllMoviesFromDB = async (query: Record<string, unknown>) => {
+  const movieQuery = new QueryBuilder<TMovies>(
+    Movie.find().populate('prerequisites', 'title releaseYear runtime watched'),
+    { sort: 'releaseYear,_id', ...query }, // keep the original ordering as the default
+  )
+    .search(MOVIE_SEARCHABLE_FIELDS)
+    .filter()
+    .sort()
+    .paginate()
+    .fieldLimiting();
+
+  const data = await movieQuery.modelQuery;
+  const meta = await movieQuery.countTotal();
+
+  return { meta, data };
 };
 
 const getSingleMovieFromDB = async (movieId: string) => {

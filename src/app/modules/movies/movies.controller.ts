@@ -16,7 +16,9 @@ const createMovie: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllMovies: RequestHandler = catchAsync(async (req, res) => {
-  const movies = await MovieServices.getAllMoviesFromDB();
+  const movies = await MovieServices.getAllMoviesFromDB(
+    req.query as Record<string, unknown>,
+  );
 
   sendResponse(res, {
     statusCode: status.OK,
@@ -49,7 +51,6 @@ const getRewatchOrder: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 
 export const MovieControllers = {
   createMovie,
