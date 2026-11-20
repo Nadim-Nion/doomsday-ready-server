@@ -162,6 +162,7 @@ const getAllMoviesFromDB = async (query: Record<string, unknown>) => {
   return { meta, data };
 };
 
+// Get A SINGLE MOVIE
 const getSingleMovieFromDB = async (movieId: string) => {
   if (!mongoose.isValidObjectId(movieId)) {
     throw new AppError(status.BAD_REQUEST, 'Invalid movie ID');

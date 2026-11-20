@@ -1,0 +1,117 @@
+{
+  "info": {
+    "_postman_id": "1b7abb88-5ecf-408c-8b1b-a02557b0ecae",
+    "name": "Doomsday Ready",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48711941",
+    "_collection_link": "https://go.postman.co/collection/48711941-1b7abb88-5ecf-408c-8b1b-a02557b0ecae?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Movies",
+      "item": [
+        {
+          "name": "Create a Movie",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Thor: Ragnarok\",\r\n    \"releaseYear\": 2017,\r\n    \"runtime\": 130,\r\n    \"watched\": false,\r\n    \"prerequisites\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{doomsday-local-url}}",
+              "host": [
+                "{{doomsday-local-url}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Movies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doomsday-local-url}}",
+              "host": [
+                "{{doomsday-local-url}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Movie",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"prerequisites\": [\r\n        \"6aff2e09293d15c5e68395eb\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{doomsday-local-url}}/6affd9a8ca857c88ac30e371",
+              "host": [
+                "{{doomsday-local-url}}"
+              ],
+              "path": [
+                "6affd9a8ca857c88ac30e371"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rewatch Order",
+      "item": [
+        {
+          "name": "Rewatch Order for Target Movie",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Thor: Ragnarok\",\r\n    \"releaseYear\": 2017,\r\n    \"runtime\": 130,\r\n    \"watched\": false,\r\n    \"prerequisites\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{doomsday-local-url}}/6affce9837c7bfeef29f6444/rewatch-order",
+              "host": [
+                "{{doomsday-local-url}}"
+              ],
+              "path": [
+                "6affce9837c7bfeef29f6444",
+                "rewatch-order"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "doomsday-local-url",
+      "value": ""
+    }
+  ]
+}
